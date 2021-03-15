@@ -86,6 +86,9 @@ class Sudoku(Environment):
 
     # TODO
     def apply_GAC(self):
+        ''' Applies Generalized Arc Consistency (GAC) algorithm.
+
+        '''
         to_do = []
         for row in self.csp:
             for cell in row:
@@ -106,6 +109,7 @@ class Sudoku(Environment):
                 for e in self.csp[var[0]][var[1]]['D']:
                     viable = viable + [any([cons.condition(e, e2) for e2 in self.csp[var2[0]][var2[1]]['D']])]
                     
+                print(self.csp[var[0]][var[1]]['D'])
                 for i, v in enumerate(viable):
                     if not v:
                         del self.csp[var[0]][var[1]]['D'][i]
@@ -207,52 +211,4 @@ class EqNumConstraint(Constraint):
                               self.scope[1])
 
 
-if __name__ == '__main__':
-    from sudoku import Sudoku
-    from sudoku_agent import SudokuAgent
-
-    s1 = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
-        [6, 0, 0, 1, 9, 5, 0, 0, 0],
-        [0, 9, 8, 0, 0, 0, 0, 6, 0],
-        [8, 0, 0, 0, 6, 0, 0, 0, 3],
-        [4, 0, 0, 8, 0, 3, 0, 0, 1],
-        [7, 0, 0, 0, 2, 0, 0, 0, 6],
-        [0, 6, 0, 0, 0, 0, 2, 8, 0],
-        [0, 0, 0, 4, 1, 9, 0, 0, 5],
-        [0, 0, 0, 0, 8, 0, 0, 7, 9]]
-
-    s2 = [[1, 0, 0, 0, 0, 0, 0, 0, 6],
-        [0, 3, 0, 7, 0, 5, 0, 2, 0],
-        [0, 0, 2, 0, 0, 0, 5, 0, 0],
-        [0, 7, 0, 8, 0, 9, 0, 3, 0],
-        [9, 0, 0, 0, 3, 0, 0, 0, 8],
-        [0, 1, 0, 4, 0, 7, 0, 5, 0],
-        [0, 0, 6, 0, 0, 0, 9, 0, 0],
-        [0, 2, 0, 6, 0, 1, 0, 4, 0],
-        [8, 0, 0, 0, 0, 0, 0, 0, 2]]
-
-    s3 = [[0, 0, 0, 0, 9, 4, 0, 1, 0],
-        [0, 0, 0, 0, 0, 0, 6, 0, 7],
-        [0, 0, 4, 8, 0, 1, 0, 2, 0],
-        [0, 0, 9, 0, 0, 0, 4, 0, 6],
-        [4, 0, 0, 0, 2, 0, 0, 0, 1],
-        [6, 0, 7, 0, 0, 0, 5, 0, 0],
-        [0, 1, 0, 5, 0, 2, 7, 0, 0],
-        [3, 0, 5, 0, 0, 0, 0, 0, 0],
-        [0, 6, 0, 9, 3, 0, 0, 0, 0]]
-
-
-    # Create an environment
-    env = Sudoku(s3, True) #s1 termina com 1 valor pra cada dominio
-
-    # Creat an agent
-    ag = SudokuAgent(env, True)
-
-    # Print CSP
-    for c in ag.csp:
-        for cell in c:
-            print(cell['D'])
-
-    #input('Press ENTER to start')
-    ag.act()
 

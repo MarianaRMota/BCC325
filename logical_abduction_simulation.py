@@ -9,7 +9,7 @@ statements = [Clause('alarm',['tampering']),
               Clause('smoke',['fire']),
               Assumable('fire'),
               Assumable('tampering'),]
-kb = KB(statements)
+kb = KBA(statements)
 ag = LogicalAgent(kb)
 print(ag.explain(['alarm']))
 
@@ -22,12 +22,13 @@ statements = [Clause('bronquite',['gripe']),
               Clause('febre',['gripe']),
               Clause('febre',['infecção']),
               Clause('false',['fumante','não_fumante']),
+              Askable('chiado'),
               Assumable('não_fumante'),
               Assumable('gripe'),
               Assumable('infecção')]
 
-kb = KB(statements)
+kb = KBA(statements)
 
-kb = KB(statements)
+kb = KBA(statements)
 ag = LogicalAgent(kb)
 print(ag.explain(['chiado','febre']))
